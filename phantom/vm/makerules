@@ -27,19 +27,19 @@ vpath %.c . sys
 W32GCC = -ffreestanding -I- $(addprefix -I,$(INCDIRS)) -I. -c
 
 nonstandalone.o: nonstandalone.c
-	$(CC) -m32 -g -c nonstandalone.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c nonstandalone.c 
 
 win_screen_win.o: win_screen_win.c
-	$(CC) -m32 -c win_screen_win.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c win_screen_win.c
 
 win_hal_win.o: win_hal_win.c
-	$(CC) -m32 -c win_hal_win.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c win_hal_win.c
 
 unix_hal_unix.o: unix_hal_unix.c
-	$(CC) -m32 -c unix_hal_unix.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c unix_hal_unix.c
 
 x11_display.o: x11_display.c
-	$(CC) -m32 -c x11_display.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c  -c x11_display.c
 
 GLLIB=../lib/libTinyGL.a  ../libc/strnstrn.o 
 
@@ -48,8 +48,10 @@ COMMON_LIB= ../lib/libtuned.a  ../lib/libphantom.a ../lib/libwin.a ../lib/libfre
 ifeq ($(OSTYPE),cygwin)
 OSLIB = -lgdi32 $(COMMON_LIB) 
 else
-OSLIB = $(COMMON_LIB)  ../lib/libphantom_c.a 
+# OSLIB = $(COMMON_LIB)  ../lib/libphantom_c.a 
+OSLIB = $(COMMON_LIB)
 endif
+
 
 PVM_TEST_OBJFILES=pvm_main.o nonstandalone.o win_hal.o win_bulk.o win_screen.o win_screen_win.o win_hal_win.o
 X11_TEST_OBJFILES=pvm_main.o nonstandalone.o win_hal.o win_bulk.o x11_screen.o x11_display.o 
@@ -57,14 +59,17 @@ HLS_TEST_OBJFILES=pvm_main.o nonstandalone.o win_bulk.o headless_screen.o unix_h
 
 
 pvm_test: pvm_main.o nonstandalone.o $(GLLIB) libphantom_vm.a  $(PVM_TEST_OBJFILES) ../lib/libwin.a
-	$(CC) -m32 -g -ffreestanding -o $@ $^ $(OSLIB) libphantom_vm.a 
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $^ $(OSLIB) libphantom_vm.a 
 
 pvm_x11: pvm_main.o nonstandalone.o $(GLLIB) libphantom_vm.a  $(X11_TEST_OBJFILES)
-	$(CC) -m32 -g -ffreestanding -o $@ $^ $(OSLIB) libphantom_vm.a -lX11
+	$(CC) $(CFLAGS) $(CPPFLAGS)  -o $@ $^ $(OSLIB) libphantom_vm.a -lX11
 
 pvm_headless: pvm_main.o nonstandalone.o $(GLLIB) libphantom_vm.a  $(HLS_TEST_OBJFILES)
-	$(CC) -m32 -g  -o $@ $^ $(OSLIB) libphantom_vm.a -lpthread
-#	$(CC) -m32 -g -ffreestanding -o $@ $^ $(OSLIB) libphantom_vm.a -lpthread
+	$(CC) $(INCLUDES) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(OSLIB) libphantom_vm.a
 
+pvm_genode: $(GLLIB) $(HLS_TEST_OBJFILES)
+	@echo --- copying pvm_main.o to $(PHANTOM_BUILD_DIR)
+	cp pvm_main.o $(PHANTOM_BUILD_DIR)
+	# $(CC) -m32 -g -ffreestanding -o $@ $^ $(OSLIB) libphantom_vm.a -lpthread
 
 #win_screen_win.o win_hal_win.o

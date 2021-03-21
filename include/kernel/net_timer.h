@@ -30,11 +30,6 @@ int set_net_timer(net_timer_event *e, unsigned int delay_ms, net_timer_callback 
 int cancel_net_timer(net_timer_event *e);
 
 void clear_net_timer(net_timer_event *e);
-extern inline void clear_net_timer(net_timer_event *e)
-{
-	e->prev = e->next = NULL;
-	e->pending = 0;
-}
 
 #endif
 

@@ -1,4 +1,4 @@
-include config.mk
+include  $(realpath $(PHANTOM_HOME))/config.mk
 MAKEFLAGS += --no-print-directory
 
 
@@ -28,19 +28,19 @@ up::
 	svn up
 	$(MAKE) all
 
-all::
+# all::
 	# kernel
-	$(MAKE) -C phantom
-ifeq ($(ARCH),ia32)
-	$(MAKE) -C oldtree/kernel/phantom/i386
-endif
-	$(MAKE) -C oldtree/kernel
+# 	$(MAKE) -C phantom
+# ifeq ($(ARCH),ia32)
+# 	$(MAKE) -C oldtree/kernel/phantom/i386
+# endif
+# 	$(MAKE) -C oldtree/kernel
 
-clean::
-	# kernel
-	$(MAKE) -C phantom clean
-	$(MAKE) -C oldtree/kernel clean
-	-rm -f *.E all_sources
+# clean::
+# 	# kernel
+# 	$(MAKE) -C phantom clean
+# 	$(MAKE) -C oldtree/kernel clean
+# 	-rm -f *.E all_sources
 
 analyse::
 	$(MAKE) -C phantom analyse
@@ -66,16 +66,18 @@ test::
 
 # Genode porting related
 
-vmonly::
-	# building
-	$(MAKE) -C phantom/gl
-	$(MAKE) -C phantom/libtuned
-	$(MAKE) -C phantom/libphantom
-	$(MAKE) -C phantom/libwin
-	$(MAKE) -C phantom/libfreetype
-	$(MAKE) -C phantom/libc
-	$(MAKE) -C phantom/vm pvm_headless
+# vmonly::
+# 	# building
+# 	$(MAKE) -C phantom/gl
+# 	$(MAKE) -C phantom/libtuned
+# 	$(MAKE) -C phantom/libphantom
+# 	$(MAKE) -C phantom/libwin
+# 	$(MAKE) -C phantom/libfreetype
+# 	$(MAKE) -C phantom/libc
+# 	$(MAKE) -C phantom/vm pvm_headless
+vmonly:
+	$(MAKE) -C $(realpath $(PHANTOM_HOME))/phantom vmonly
 	
-vmonly-clean::
+clean:
 	# cleaning
 	$(MAKE) -C phantom vmonly-clean

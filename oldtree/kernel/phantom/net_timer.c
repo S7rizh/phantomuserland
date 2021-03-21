@@ -189,5 +189,11 @@ int net_timer_init(void)
     return 0;
 }
 
+extern inline void clear_net_timer(net_timer_event *e)
+{
+	e->prev = e->next = NULL;
+	e->pending = 0;
+}
+
 //#endif // HAVE_NET
 

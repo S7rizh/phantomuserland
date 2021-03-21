@@ -1,3 +1,4 @@
+BOARD = ia32_pc
 
 default:: all
 
@@ -39,7 +40,7 @@ OBJFILES += $(patsubst %.S,%.o,$(notdir $(SFILES)))
 
 %.o: %.c
 	@echo ---- cc $@
-	@$(CC) -c -o $@ $(PHANTOM_CFLAGS) $<
+	@$(CC) $(PHANTOM_CFLAGS) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
 
 %.o: %.S
 	@echo ---- cc $@

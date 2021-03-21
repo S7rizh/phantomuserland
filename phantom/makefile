@@ -10,7 +10,10 @@ endif
 
 # subdir offsets - turned off for seems to be bad idea :(
 
-SUBDIRS = $(filter-out $(EXCLUDED_SUBDIRS),  libc crypt gl dev libphantom threads newos libtuned libwin libkern libfreetype vm tmalloc user modules apps)
+# SUBDIRS =  $(filter-out $(EXCLUDED_SUBDIRS),  libc crypt gl dev libphantom threads newos libtuned libwin libkern libfreetype vm tmalloc user modules apps)
+# SUBDIRS = $(addprefix $(PHANTOM_HOME)/, $(filter-out $(EXCLUDED_SUBDIRS),  libc crypt gl dev libphantom threads newos libtuned libwin libkern libfreetype vm tmalloc user modules apps))
+# SUBDIRS =  $(addprefix phantom/, $(filter-out $(EXCLUDED_SUBDIRS),  libc crypt gl dev libphantom threads newos libtuned libwin libkern libfreetype vm tmalloc user modules apps))
+SUBDIRS =  $(addprefix phantom/, $(filter-out $(EXCLUDED_SUBDIRS),  gl dev libphantom threads newos libtuned libwin libkern libfreetype vm tmalloc user modules apps))
 
 
 %.MAKE:
@@ -40,8 +43,8 @@ vmonly:
 	$(MAKE) -C libphantom
 	$(MAKE) -C libwin
 	$(MAKE) -C libfreetype
-	$(MAKE) -C libc
-	$(MAKE) -C vm pvm_headless
+	# $(MAKE) -C libc
+	$(MAKE) -C vm pvm_genode
 	
 vmonly-clean:
 	# cleaning
