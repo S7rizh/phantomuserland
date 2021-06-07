@@ -1,0 +1,8 @@
+# building
+make -C phantom vmonly
+# building
+make -C gl
+/home/anton/Sandbox/PhantomOS/phantomuserland/phantom/makerules:7: /home/anton/Sandbox/PhantomOS/phantomuserland/phantom/Makeconf-genode-amd64: Нет такого файла или каталога
+make[2]: *** Нет правила для сборки цели «/home/anton/Sandbox/PhantomOS/phantomuserland/phantom/Makeconf-genode-amd64».  Останов.
+make[1]: *** [makefile:38: vmonly] Ошибка 2
+make: *** [Makefile:71: vmonly] Ошибка 2

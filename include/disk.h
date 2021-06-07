@@ -17,6 +17,12 @@
 #include <hal.h>
 #include "pager_io_req.h"
 
+#ifdef PHANTOM_GENODE
+
+#include <stddef.h>
+
+#endif
+
 /**
  * \ingroup BlockIO
  * \defgroup BlockIO Block devices io

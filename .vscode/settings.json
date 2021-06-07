@@ -111,6 +111,18 @@
       "font.h": "c",
       "ui.h": "c",
       "key_event.h": "c",
-      "ctl_private.h": "c"
-    }
+      "ctl_private.h": "c",
+      "stddef.h": "c",
+      "pager_io_req.h": "c",
+      "genode_disk.h": "c",
+      "pool.h": "c",
+      "phantom_types.h": "c",
+      "arch-types.h": "c",
+      "stdint.h": "c",
+      "_types.h": "c",
+      "misc.h": "c",
+      "connect.h": "c",
+      "stdio.h": "c"
+    },
+    "cmake.configureOnOpen": false
   }

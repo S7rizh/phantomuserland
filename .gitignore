@@ -132,3 +132,7 @@ test/unit/suites/Makefile
 *.py~
 run/qemu/0.15.1/stdout.txt
 phantom/doxygen/
+/.metadata/
+*.cproject
+*/.cproject
+*.settings

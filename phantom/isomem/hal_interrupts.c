@@ -20,5 +20,5 @@ int hal_is_sti(void)
 int hal_save_cli(void)
 {
     _stub_print();
-    return 0;
+    return 1; // From unix hal
 }

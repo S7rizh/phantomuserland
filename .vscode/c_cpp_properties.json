@@ -31,12 +31,16 @@
         {
             "name": "Linux",
             "includePath": [
-                "/usr/include",
-                "/usr/local/include",
-                "${workspaceRoot}"
+                "${workspaceFolder}/include/genode_libc/libc",
+                "${workspaceFolder}/include/genode_libc/openlibm",
+                "${workspaceFolder}/include/genode_libc/spec/x86_64/libc",
+                "${workspaceFolder}/include/genode-amd64",
+                "${workspaceFolder}/include"
             ],
-            "defines": [],
-            "intelliSenseMode": "clang-x64",
+            "defines": [
+                "PHANTOM_GENODE=1"
+            ],
+            "intelliSenseMode": "linux-clang-x64",
             "browse": {
                 "path": [
                     "/usr/include",
@@ -47,8 +51,17 @@
                 "databaseFilename": ""
             },
             "compilerPath": "/usr/bin/gcc",
-            "cStandard": "c11",
-            "cppStandard": "c++17"
+            "cStandard": "c89",
+            "cppStandard": "c++17",
+            "forcedInclude": [
+                "${workspaceFolder}/include/kernel/config.h",
+                "${workspaceFolder}/include/genode-amd64/arch/arch-config.h",
+                "${workspaceFolder}/include/genode-amd64/arch/board-amd64-pc-config.h"
+            ],
+            "compilerArgs": [
+                "-nostdinc",
+                "-nostdinc++"
+            ]
         },
         {
             "name": "Win32",

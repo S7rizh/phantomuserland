@@ -67,6 +67,7 @@ static int debug_print = 0;
     }
 */
 
+#ifndef PHANTOM_GENODE
 
 static int tostring_5( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
 {
@@ -395,3 +396,190 @@ void pvm_restart_tty( pvm_object_t o )
     w_restart_attach( &tty->w );
 }
 
+#else
+
+static int tostring_5( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    (void) me;
+    DEBUG_INFO;
+    SYSCALL_RETURN( pvm_create_string_object( "tty window" ));
+}
+
+static int putws_17( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    DEBUG_INFO;
+
+    struct data_area_4_tty      *da = pvm_data_area( me, tty );
+
+    CHECK_PARAM_COUNT(1);
+
+    SYSCALL_THROW_STRING( "not implemented in Genode" );
+
+    SYSCALL_RETURN_NOTHING;
+}
+
+static int getwc_16( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    (void) me;
+    DEBUG_INFO;
+    char c[1];
+
+
+    vm_unlock_persistent_memory();
+    c[0] = 0;
+    vm_lock_persistent_memory();
+
+    SYSCALL_RETURN( pvm_create_string_object_binary( c, 1 ));
+}
+
+
+static int debug_18( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    (void) me;
+    DEBUG_INFO;
+
+    CHECK_PARAM_COUNT(1);
+
+    SYSCALL_THROW_STRING( "not implemented in Genode" );
+
+    SYSCALL_RETURN_NOTHING;
+}
+
+
+static int gotoxy_19( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    struct data_area_4_tty      *da = pvm_data_area( me, tty );
+
+    DEBUG_INFO;
+
+    CHECK_PARAM_COUNT(2);
+
+    SYSCALL_THROW_STRING( "not implemented in Genode" );
+
+    SYSCALL_RETURN_NOTHING;
+}
+
+static int clear_20( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    struct data_area_4_tty      *da = pvm_data_area( me, tty );
+
+    DEBUG_INFO;
+
+    SYSCALL_THROW_STRING( "not implemented in Genode" );
+
+    SYSCALL_RETURN_NOTHING;
+}
+
+static int setcolor_21( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    (void) me;
+    //struct data_area_4_tty      *da = pvm_data_area( me, tty );
+
+    DEBUG_INFO;
+
+    CHECK_PARAM_COUNT(1);
+
+    SYSCALL_THROW_STRING( "not implemented in Genode" );
+
+    SYSCALL_RETURN_NOTHING;
+}
+
+static int fill_22( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    (void) me;
+    DEBUG_INFO;
+    SYSCALL_THROW_STRING( "not implemented" );
+}
+
+static int putblock_23( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    (void) me;
+    DEBUG_INFO;
+    SYSCALL_THROW_STRING( "not implemented" );
+}
+
+
+
+static int tty_setWinPos_24( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    DEBUG_INFO;
+    struct data_area_4_tty      *da = pvm_data_area( me, tty );
+
+    CHECK_PARAM_COUNT(2);
+
+    SYSCALL_THROW_STRING( "not implemented in Genode" );
+
+    SYSCALL_RETURN_NOTHING;
+}
+
+static int tty_setWinTitle_25( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    DEBUG_INFO;
+    struct data_area_4_tty      *da = pvm_data_area( me, tty );
+
+    CHECK_PARAM_COUNT(1);
+
+    SYSCALL_THROW_STRING( "not implemented in Genode" );
+
+    SYSCALL_RETURN_NOTHING;
+}
+
+
+static int setbgcolor_26( pvm_object_t me, pvm_object_t *ret, struct data_area_4_thread *tc, int n_args, pvm_object_t *args )
+{
+    struct data_area_4_tty      *da = pvm_data_area( me, tty );
+
+    DEBUG_INFO;
+
+    CHECK_PARAM_COUNT(1);
+
+    SYSCALL_THROW_STRING( "not implemented in Genode" );
+
+    SYSCALL_RETURN_NOTHING;
+}
+
+
+syscall_func_t  syscall_table_4_tty[32] =
+{
+    &si_void_0_construct,               &si_void_1_destruct,
+    &si_void_2_class,                   &si_void_3_clone,
+    &si_void_4_equals,                  &tostring_5,
+    &si_void_6_toXML,                   &si_void_7_fromXML,
+    // 8
+    &invalid_syscall,                   &invalid_syscall,
+    &invalid_syscall,                   &invalid_syscall,
+    &invalid_syscall,                   &invalid_syscall,
+    &invalid_syscall,                   &si_void_15_hashcode,
+    // 16
+    &getwc_16,                          &putws_17,
+    &debug_18,                          &gotoxy_19,
+    &clear_20,                          &setcolor_21,
+    &fill_22,                           &putblock_23,
+    // 24
+    &tty_setWinPos_24,                  &tty_setWinTitle_25,
+    &setbgcolor_26,                     &invalid_syscall,
+    &invalid_syscall,                   &invalid_syscall,
+    &invalid_syscall,                   &invalid_syscall,
+
+};
+DECLARE_SIZE(tty);
+
+
+void pvm_internal_init_tty( pvm_object_t  ttyos )
+{
+}
+
+void pvm_gc_iter_tty(gc_iterator_call_t func, pvm_object_t  os, void *arg)
+{
+}
+
+void pvm_gc_finalizer_tty( pvm_object_t os )
+{
+}
+
+
+void pvm_restart_tty( pvm_object_t o )
+{
+}
+
+#endif
